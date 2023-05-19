@@ -2,13 +2,10 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<link href='../lib/main.css' rel='stylesheet' />
-<script src='https://github.com/mozilla-comm/ical.js/releases/download/v1.4.0/ical.js'></script>
-<script src='../lib/main.js'></script>
-<script src='../node_modules/@fullcalendar/icalendar/main.global.js'></script>
-<script src='../lib/locales/de.js'></script>
+<script src='../dist/index.global.js'></script>
+<script src='../node_modules/ical.js/build/ical.js'></script>
+<script src='../node_modules/@fullcalendar/icalendar/index.global.js'></script>
 <script>
-
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
@@ -18,14 +15,20 @@
       height: '100%',
       expandRows: true,
       slotMinTime: '08:00',
-      slotMaxTime: '20:00',
+      slotMaxTime: '22:00',
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listDay,listWeek'
+      },
+	  // customize the button names,
+      // otherwise they'd all just say "list"
+      views: {
+        listDay: { buttonText: 'list day' },
+        listWeek: { buttonText: 'list week' }
       },
       initialView: 'timeGridWeek',
-      initialDate: '2022-05-02',
+      initialDate: '2023-05-15',
       navLinks: true, // can click day/week names to navigate views
       editable: false,
       selectable: false,
@@ -41,7 +44,7 @@
       },
       eventContent: function(arg) {
         return {
-        html: '<b>' + arg.event.title + '</b>' + '<br>' + arg.event.extendedProps.organizer
+        html: '<b>' + arg.event.title + '</b>' + '<br>' + 'Reserved by: ' + arg.event.extendedProps.organizer
         }
       },
 
